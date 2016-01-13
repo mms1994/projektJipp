@@ -187,11 +187,71 @@ int my_vect<T>::getNdim() {
 }
 template <class T>
 void my_vect<T>::insert(const T &ob, size_t ind) {
-
+	if (!dat) {
+		cout << "Pusto!" << endl;
+	}
+	else if (last < ndim) {
+		int temp = last;
+		while (ind != temp) {
+			temp--;
+			dat[temp + 1] = dat[temp];
+		}
+		dat[ind] = ob;
+		last++;
+	}
+	else {
+		realloc();
+		int temp = last;
+		while (ind != temp) {
+			temp--;
+			dat[temp+1] = dat[temp];
+		}
+		dat[ind] = ob;
+		last++;
+	}
 }
 template <class T>
 void my_vect<T>::insert(const T &tab_ob, size_t ind, size_t numb) {
-
+	if (!dat) {
+		cout << "Pusto" << endl;
+	}
+	else if (last < ndim && (last - 1 + numb) < ndim) {
+		int temp = last;
+		int temp2 = numb;
+		int temp3 = ind;
+		int dif = last - ind;
+		last += numb;
+		int diff2 = last - diff;
+		for (size_t i = 0; i < diff; i++) {
+			dat[diff2] = dat[temp3];
+			diff2++;
+			temp3++;
+		}
+		temp3 = ind;
+		for (size_t i = 0; i < numb; i++) {
+			dat[temp3] = ob[i];
+			temp3++;
+		}
+	}
+	else {
+		while (!(last < ndim && (last - 1 + numb) < ndim))
+			realoc();
+		int temp = last;
+		int temp2 = numb;
+		int temp3 = ind;
+		int dif = last - ind;
+		last += numb;
+		int diff2 = last--;
+		for (size_t i = 0; i < diff; i++) {
+			dat[diff2] = dat[temp3];
+			diff--;
+			temp3++;
+		}
+		temp3 = ind;
+		for (size_t i = 0; i < numb; i++) {
+			dat[temp3] = ob[i];
+		}
+	}
 }
 
 #endif
