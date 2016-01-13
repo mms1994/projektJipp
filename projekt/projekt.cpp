@@ -1,15 +1,13 @@
 // projekt.cpp: Okreœla punkt wejœcia dla aplikacji konsoli.
 //
 
-//#include "my_interf.h"
 #include "stdafx.h"
-#include "node.h"
+#include "my_interf.h"
 
 int _tmain(int argc, _TCHAR* argv[])
 {
-	/*
 	int op;  //operacje
-	my_interf ifc(1000);
+	my_interf ifc(2);
 
 	while (ifc.run)
 	{
@@ -23,11 +21,17 @@ int _tmain(int argc, _TCHAR* argv[])
 		case MY_INTERF_POP:
 			ifc.pop();
 			break;
-		case MY_INTERF_READ:
-			ifc.read();
+		case MY_INTERF_CLEAR:
+			ifc.clear_all();
 			break;
-		case MY_INTERF_WRITE:
-			ifc.write();
+		case MY_INTERF_MODIFY:
+			ifc.modify();
+			break;
+		case MY_INTERF_ADD_OBJ:
+			ifc.addObj();
+			break;
+		case MY_INTERF_ADD_TAB_OBJ:
+			ifc.addTabObj();
 			break;
 		case MY_INTERF_DISP:
 			ifc.disp();
@@ -35,14 +39,22 @@ int _tmain(int argc, _TCHAR* argv[])
 		case MY_INTERF_FIND:
 			ifc.find();
 			break;
+		case MY_INTERF_REMOVE:
+			ifc.remove();
+			break;
+		case MY_INTERF_ADD:
+			ifc.save();
+			break;
+		case MY_INTERF_LOAD:
+			ifc.load();
+			break;
 		case MY_INTERF_FINISH:
 			ifc.finish();
 			break;
 		default:
-			ifc.defaul();
+			ifc.default();
 		};
 	}
-	*/
 	return 0;
 }
 

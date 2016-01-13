@@ -33,8 +33,8 @@ public:
 	int checkIndex(size_t ind);
 	void setLast();
 	int getNdim();
-private:
 	void realloc();   //jeœli last >= ndim – zwiêksza ndim i realokuje pamiêæ
+private:
 	void alloc(size_t dim);
 };
 
@@ -115,9 +115,9 @@ T *my_vect<T>::pop() {
 	}
 	else {
 		last--;
-		T temp = &dat[last];
+		T temp = dat[last];
 		dat[last].T::~T();
-		return temp;
+		return &temp;
 	}
 }
 template <class T>
@@ -126,7 +126,7 @@ T & my_vect<T>::operator[](const size_t ind) {
 		return dat[ind];
 	else {
 		cout << "index spoza zakresu" << endl;
-		return NULL;
+		return node();
 	}
 }
 template <class T>
@@ -135,7 +135,8 @@ void my_vect<T>::erase(const T *ob) {
 }
 template <class T, class Key>
 T *Find(T *begin, T *end, const Key &k) {
-	
+	T temp;
+	return &temp;
 }
 template <class T>
 void my_vect<T>::clear_all() {
@@ -170,9 +171,9 @@ int my_vect<T>::getLast() {
 }
 template <class T>
 int my_vect<T>::checkIndex(size_t ind) {
-	if (index >= 0 && index < last)
+	if (ind >= 0 && ind < last)
 		return 1;
-	else if (index >= last && index <= ndim)
+	else if (ind >= last && ind <= ndim)
 		return 2;
 	else
 		return 0;

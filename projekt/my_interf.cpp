@@ -1,11 +1,16 @@
 #include "stdafx.h"
 #include "my_interf.h"
+#include "node.h"
 #include "my_mess.h"
-/*
+
 
 my_interf::my_interf(size_t dim) : vect() {
 	sprintf_s(str_interf[MY_INTERF_PUSH], MAX_INTERF_CHAR*sizeof(char), "%d - push", MY_INTERF_PUSH);
 	sprintf_s(str_interf[MY_INTERF_POP], MAX_INTERF_CHAR*sizeof(char), "%d - pop", MY_INTERF_POP);
+	sprintf_s(str_interf[MY_INTERF_CLEAR], MAX_INTERF_CHAR*sizeof(char), "%d - clear all", MY_INTERF_CLEAR);
+	sprintf_s(str_interf[MY_INTERF_MODIFY], MAX_INTERF_CHAR*sizeof(char), "%d - modify", MY_INTERF_MODIFY);
+	sprintf_s(str_interf[MY_INTERF_ADD_OBJ], MAX_INTERF_CHAR*sizeof(char), "%d - add object", MY_INTERF_ADD_OBJ);
+	sprintf_s(str_interf[MY_INTERF_ADD_TAB_OBJ], MAX_INTERF_CHAR*sizeof(char), "%d - add tab object", MY_INTERF_ADD_TAB_OBJ);
 	sprintf_s(str_interf[MY_INTERF_DISP], MAX_INTERF_CHAR*sizeof(char), "%d - disp", MY_INTERF_DISP);
 	sprintf_s(str_interf[MY_INTERF_FIND], MAX_INTERF_CHAR*sizeof(char), "%d - find", MY_INTERF_FIND);
 	sprintf_s(str_interf[MY_INTERF_REMOVE], MAX_INTERF_CHAR*sizeof(char), "%d - remove", MY_INTERF_REMOVE);
@@ -16,43 +21,35 @@ my_interf::my_interf(size_t dim) : vect() {
 	run = true;
 }
 
-void my_interf::menu()
-{
+void my_interf::menu() {
 	int i;
-	for (i = 0; i<MY_INTERF_TOT; i++)
-	{
+	for (i = 0; i<MY_INTERF_TOT; i++) {
 		cout << str_interf[i] << endl;
 	}
 }
 
-void my_interf::push()
-{
+void my_interf::push() {
 	mcoord ob(0, 0);
 	cin >> ob;
 	vect.push(ob);
 }
 
-void my_interf::pop()
-{
+void my_interf::pop() {
 	mcoord *ptr = nullptr;
 	ptr = vect.pop();
-	if (ptr)
-	{
+	if (ptr) {
 		cout << *ptr;
 	}
-	else
-	{
+	else {
 		msg.mess(WARN_ARR_EMPT);
 	}
 }
 
-void my_interf::disp()
-{
+void my_interf::disp() {
 	vect.disp();
 }
 
-void my_interf::find()
-{
+void my_interf::find() {
 	mcoord ob(0, 0);
 	mcoord *ptr = nullptr;
 	mcoord *ptr1 = nullptr;
@@ -62,11 +59,9 @@ void my_interf::find()
 	ptr1 = vect.get_end();
 	size_t dist;
 	int i = 0;
-	while (ptr)
-	{
+	while (ptr)	{
 		ptr = Find(ptr, vect.get_end(), ob);
-		if (ptr)
-		{
+		if (ptr) {
 			dist = ptr - vect.get_begin();
 			cout << "it = " << dist << " " << *ptr;
 			if (*ptr == *ptr1)
@@ -83,13 +78,11 @@ void my_interf::find()
 	}
 }
 
-void my_interf::finish()
-{
+void my_interf::finish() {
 	run = false;
 }
 
-void my_interf::defaul()
-{
+void my_interf::default() {
 	msg.mess(WARN_ARR_UNKN);
 }
 
@@ -101,51 +94,129 @@ void my_interf::remove() {
 }
 
 void my_interf::save() {
-	cout << "Blabla1" << endl;
-	flout.open("dane.dat", ios_base::out | ios::trunc | ios::binary);
-	size_t max = vect.get_last_element();
+	cout << "Podaj plik" << endl;
+	char str[64];
+	cin >> str;
+	setFileName(str);
+	flout.open(getFileName(), ios_base::out | ios::trunc | ios::binary);
+	size_t max = vect.getLast();
 	if (!max)
 		cout << "Tablica jest pusta !!!" << endl;
 	else if (!flout.is_open())
-		cout << "Plik nie zosta? otwarty !!!" << endl;
+		cout << "Plik nie zostal otwarty !!!" << endl;
 	else {
-		cout << "Blabla2" << endl;
 		size_t i;
 		flout.clear();
 		flout.seekp(0);
 		for (i = 0; i < max; i++) {
 			flout << vect[i];
-			//flout.flush();
 		}
-		cout << "Blabla3" << endl;
 		flout.clear();
 		flout.close();
 	}
 }
 
 void my_interf::load() {
-	cout << "ladowanie" << endl;
-	flinp.open("dane.dat", ios_base::in | ios::binary);
+	cout << "Podaj plik" << endl;
+	char str[64];
+	cin >> str;
+	setFileName(str);
+	flinp.open(getFileName(), ios_base::out | ios::trunc | ios::binary);
 	vect.clear_all();
 	int i = 0;
 	flinp.clear();
 	if (!flinp.is_open())
-		cout << "Plik nie zosta? otwarty !!!" << endl;
+		cout << "Plik nie zostal otwarty !!!" << endl;
 	else {
-		while (flinp.good()) {
-			cout << "weszlo" << endl;
-			//if (flinp.fail()) break;
-			int a = vect.get_ndim();
+			int a = vect.getNdim();
 			if (i == a)
 				vect.realloc();
-			flinp >> vect[i];
-			//flinp.flush();
-			i++;
-			vect.set_last();
-			//if (flinp.eof()) break;
-			//flinp.clear();
-		}
+			while (flinp >> vect[i]) {
+				i++;
+				vect.setLast();
+				int a = vect.getNdim();
+				if (i == a)
+					vect.realloc();
+			}
+			vect.removeLast();
 		flinp.clear();
 		flinp.close();
 	}
-}*/
+}
+void my_interf::clear_all() {
+	vect.clear_all();
+}
+void my_interf::modify() {
+	cout << "Podaj index" << endl;
+	size_t index;
+	cin >> index;
+	int i = vect.checkIndex(index);
+	if (i == 1) {
+		node temp(0, "", 0, 0);
+		cin >> temp;
+		vect.modify(temp, index);
+	}
+	else if (i == 2) {
+		cout << "Pusto" << endl;
+	}
+	else {
+		cout << "Index spoza tablicy" << endl;
+	}
+}
+void my_interf::addObj() {
+	cout << "Podaj index" << endl;
+	size_t index;
+	cin >> index;
+	int i = vect.checkIndex(index);
+	if (i == 1) {
+		node temp(0, "", 0, 0);
+		cin >> temp;
+		vect.insert(temp, index);
+	}
+	else if (i == 2) {
+		cout << "Pusto" << endl;
+	}
+	else {
+		cout << "Index spoza tablicy" << endl;
+	}
+}
+void my_interf::addTabObj() {
+	cout << "Podaj index" << endl;
+	size_t index;
+	cin >> index;
+	int i = vect.checkIndex(index);
+	if (i == 1) {
+		cout << "Podaj rozmiar tablicy" << endl;
+		size_t size;
+		cin >> size;
+		if (size < 1) {
+			cout << "Rozmiar musi by wiekszy od 0" << endl;
+		}
+		else {
+			node *ptr = nullptr;
+			ptr = new node[size];
+			for (size_t i = 0; i < size; i++) {
+				node temp(0, "", 0, 0);
+				cout << "Index: " << i << "podaj obiekt" << endl;
+				cin >> temp;
+				ptr[i] = temp;
+			}
+			//co jest kurwa?
+			//vect.insert(ptr, index, size);
+		}
+	}
+	else if (i == 2) {
+		cout << "Pusto" << endl;
+	}
+	else {
+		cout << "Index spoza tablicy" << endl;
+	}
+}
+void my_interf::setFileName(char name[]) {
+	if(strlen(name)<64) 
+		memcpy_s(this->filename, 64 * sizeof(char), name, (strlen(name) + 1)*sizeof(char));
+}
+char *my_interf::getFileName() {
+	return filename;
+}
+

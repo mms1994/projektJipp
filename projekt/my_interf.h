@@ -5,11 +5,16 @@
 
 #include "my_vect.h"
 #include "mcoord.h"
-/*
+#include "my_mess.h"
+
 enum MY_INTERF
 {
 	MY_INTERF_PUSH,
 	MY_INTERF_POP,
+	MY_INTERF_CLEAR,
+	MY_INTERF_MODIFY,
+	MY_INTERF_ADD_OBJ,
+	MY_INTERF_ADD_TAB_OBJ,
 	MY_INTERF_DISP,
 	MY_INTERF_FIND,
 	MY_INTERF_REMOVE,
@@ -27,7 +32,7 @@ private:
 	my_mess msg;
 	ifstream flinp;
 	ofstream flout;
-	char filename[20];
+	char filename[64];
 public:
 	bool run;
 
@@ -39,10 +44,16 @@ public:
 	void disp();
 	void find();
 	void finish();
-	void defaul();
+	void default();
 	void remove();
 	void save();
 	void load();
+	void clear_all();
+	void modify();
+	void addObj();
+	void addTabObj();
+	void setFileName(char name[]);
+	char *getFileName();
 };
-*/
+
 #endif
