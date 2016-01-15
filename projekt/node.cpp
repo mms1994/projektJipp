@@ -31,8 +31,11 @@ ostream&operator<<(ostream &os, node &nd) {
 	return os;
 }
 istream&operator>>(istream &is, node &nd) {
+	cout << "Podaj nazwe" << endl;
 	is >> nd.str;
+	cout << "Podaj numer" << endl;
 	is >> nd.numb;
+	cout << "Podaj koordynaty" << endl;
 	is >> static_cast<mcoord&>(nd);
 	return is;
 }

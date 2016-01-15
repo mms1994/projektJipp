@@ -4,7 +4,7 @@
 #define MAX_INTERF_CHAR 512
 
 #include "my_vect.h"
-#include "mcoord.h"
+#include "node.h"
 #include "my_mess.h"
 
 enum MY_INTERF
@@ -27,7 +27,7 @@ enum MY_INTERF
 class my_interf
 {
 private:
-	my_vect<mcoord> vect;
+	my_vect<node> vect;
 	char str_interf[MY_INTERF_TOT][512];  //komunikaty, wyœwietlane na monitorze (menu)
 	my_mess msg;
 	ifstream flinp;

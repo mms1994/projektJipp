@@ -91,9 +91,12 @@ my_vect<T>::~my_vect() {
 }
 template <class T>
 void my_vect<T>::disp() {
-	for (int i = 0; i < (this->last); i++)
-		cout << dat[i] << endl;
-	cout << endl << endl;
+	if (last>0) {
+		for (int i = 0; i < (last); i++)
+			cout << dat[i] << endl;
+	}
+	else
+		cout << "Pusto" << endl;
 }
 template <class T>
 void my_vect<T>::push(const T &ob) {
@@ -110,14 +113,11 @@ void my_vect<T>::push(const T &ob) {
 template <class T>
 T *my_vect<T>::pop() {
 	if (last <= 0) {
-		cout << "Stos pusty" << endl;
 		return nullptr;
 	}
 	else {
 		last--;
-		T temp = dat[last];
-		dat[last].T::~T();
-		return &temp;
+		return &dat[last];
 	}
 }
 template <class T>
@@ -197,7 +197,7 @@ void my_vect<T>::insert(const T &ob, size_t ind) {
 			temp--;
 			dat[temp + 1] = dat[temp];
 		}
-		dat[ind] = ob;
+		dat[ind+1] = ob;
 		last++;
 	}
 	else {
@@ -207,7 +207,7 @@ void my_vect<T>::insert(const T &ob, size_t ind) {
 			temp--;
 			dat[temp+1] = dat[temp];
 		}
-		dat[ind] = ob;
+		dat[ind+1] = ob;
 		last++;
 	}
 }
@@ -230,7 +230,7 @@ void my_vect<T>::insert(const T &tab_ob, size_t ind, size_t numb) {
 		}
 		temp3 = ind;
 		for (size_t i = 0; i < numb; i++) {
-			dat[temp3] = ob[i];
+			dat[temp3] = tab_ob[i];
 			temp3++;
 		}
 	}
@@ -250,7 +250,7 @@ void my_vect<T>::insert(const T &tab_ob, size_t ind, size_t numb) {
 		}
 		temp3 = ind;
 		for (size_t i = 0; i < numb; i++) {
-			dat[temp3] = ob[i];
+			dat[temp3] = tab_ob[i];
 		}
 	}
 }

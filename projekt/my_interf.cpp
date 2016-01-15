@@ -22,6 +22,7 @@ my_interf::my_interf(size_t dim) : vect() {
 }
 
 void my_interf::menu() {
+	system("cls");
 	int i;
 	for (i = 0; i<MY_INTERF_TOT; i++) {
 		cout << str_interf[i] << endl;
@@ -29,38 +30,44 @@ void my_interf::menu() {
 }
 
 void my_interf::push() {
-	mcoord ob(0, 0);
-	cin >> ob;
-	vect.push(ob);
+	system("cls");
+	node nd(0, "", 0, 0);
+	cin >> nd;
+	vect.push(nd);
 }
 
 void my_interf::pop() {
-	mcoord *ptr = nullptr;
-	ptr = vect.pop();
-	if (ptr) {
-		cout << *ptr;
+	system("cls");
+	node *nd = nullptr;
+	nd = vect.pop();
+	if (nd) {
+		cout << *nd;
 	}
 	else {
 		msg.mess(WARN_ARR_EMPT);
 	}
+	system("pause");
 }
 
 void my_interf::disp() {
+	system("cls");
 	vect.disp();
+	system("pause");
 }
 
 void my_interf::find() {
-	mcoord ob(0, 0);
-	mcoord *ptr = nullptr;
-	mcoord *ptr1 = nullptr;
+	system("cls");
+	node nd(0, "", 0, 0);
+	node *ptr = nullptr;
+	node *ptr1 = nullptr;
 	cout << "input x, y - object for search\n";
-	cin >> ob;
+	cin >> nd;
 	ptr = vect.get_begin();
 	ptr1 = vect.get_end();
 	size_t dist;
 	int i = 0;
 	while (ptr)	{
-		ptr = Find(ptr, vect.get_end(), ob);
+		ptr = Find(ptr, vect.get_end(), nd);
 		if (ptr) {
 			dist = ptr - vect.get_begin();
 			cout << "it = " << dist << " " << *ptr;
@@ -83,10 +90,12 @@ void my_interf::finish() {
 }
 
 void my_interf::default() {
+	system("cls");
 	msg.mess(WARN_ARR_UNKN);
 }
 
 void my_interf::remove() {
+	system("cls");
 	int i;
 	cout << "Podaj numer indeksu do usuniecia: ";
 	cin >> i;
@@ -94,6 +103,7 @@ void my_interf::remove() {
 }
 
 void my_interf::save() {
+	system("cls");
 	cout << "Podaj plik" << endl;
 	char str[64];
 	cin >> str;
@@ -117,6 +127,7 @@ void my_interf::save() {
 }
 
 void my_interf::load() {
+	system("cls");
 	cout << "Podaj plik" << endl;
 	char str[64];
 	cin >> str;
@@ -144,9 +155,13 @@ void my_interf::load() {
 	}
 }
 void my_interf::clear_all() {
+	system("cls");
 	vect.clear_all();
+	cout << "Skasowano wszystko" << endl;
+	system("pause");
 }
 void my_interf::modify() {
+	system("cls");
 	cout << "Podaj index" << endl;
 	size_t index;
 	cin >> index;
@@ -155,6 +170,7 @@ void my_interf::modify() {
 		node temp(0, "", 0, 0);
 		cin >> temp;
 		vect.modify(temp, index);
+		cout << "Zmieniono" << endl;
 	}
 	else if (i == 2) {
 		cout << "Pusto" << endl;
@@ -162,8 +178,10 @@ void my_interf::modify() {
 	else {
 		cout << "Index spoza tablicy" << endl;
 	}
+	system("pause");
 }
 void my_interf::addObj() {
+	system("cls");
 	cout << "Podaj index" << endl;
 	size_t index;
 	cin >> index;
@@ -172,6 +190,7 @@ void my_interf::addObj() {
 		node temp(0, "", 0, 0);
 		cin >> temp;
 		vect.insert(temp, index);
+		cout << "Dodano" << endl;
 	}
 	else if (i == 2) {
 		cout << "Pusto" << endl;
@@ -179,8 +198,10 @@ void my_interf::addObj() {
 	else {
 		cout << "Index spoza tablicy" << endl;
 	}
+	system("pause");
 }
 void my_interf::addTabObj() {
+	system("cls");
 	cout << "Podaj index" << endl;
 	size_t index;
 	cin >> index;
