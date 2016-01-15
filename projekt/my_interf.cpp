@@ -124,6 +124,7 @@ void my_interf::save() {
 		flout.clear();
 		flout.close();
 	}
+	system("pause");
 }
 
 void my_interf::load() {
@@ -132,7 +133,7 @@ void my_interf::load() {
 	char str[64];
 	cin >> str;
 	setFileName(str);
-	flinp.open(getFileName(), ios_base::out | ios::trunc | ios::binary);
+	flinp.open(getFileName(), ios_base::out | ios::binary);
 	vect.clear_all();
 	int i = 0;
 	flinp.clear();
@@ -142,17 +143,19 @@ void my_interf::load() {
 			int a = vect.getNdim();
 			if (i == a)
 				vect.realloc();
+			vect.setLast();
 			while (flinp >> vect[i]) {
 				i++;
 				vect.setLast();
 				int a = vect.getNdim();
 				if (i == a)
 					vect.realloc();
-			}
-			vect.removeLast();
+		}
+		vect.removeLast();
 		flinp.clear();
 		flinp.close();
 	}
+	system("pause");
 }
 void my_interf::clear_all() {
 	system("cls");
@@ -218,12 +221,11 @@ void my_interf::addTabObj() {
 			ptr = new node[size];
 			for (size_t i = 0; i < size; i++) {
 				node temp(0, "", 0, 0);
-				cout << "Index: " << i << "podaj obiekt" << endl;
+				cout << "Podaj obiekt nr: "<< i << endl;
 				cin >> temp;
 				ptr[i] = temp;
 			}
-			//co jest kurwa?
-			//vect.insert(ptr, index, size);
+			vect.insert(ptr, index, size);
 		}
 	}
 	else if (i == 2) {

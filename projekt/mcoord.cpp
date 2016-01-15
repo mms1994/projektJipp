@@ -58,6 +58,7 @@ ostream&operator<<(ostream&os, const mcoord &mc) {
 	else {
 		//thrown?
 		cout << "blad" << endl;
+		return os;
 	}
 }
 istream&operator>>(istream&is, mcoord &mc) {
@@ -68,15 +69,16 @@ istream&operator>>(istream&is, mcoord &mc) {
 	return is;
 }
 ofstream&operator<<(ofstream&ofs, const mcoord &mc) {
-	if (mc.pcoord) {
+	//if (mc.pcoord) {
 		ofs.write(reinterpret_cast<const char*>(&mc.pcoord[0]), sizeof(double));
 		ofs.write(reinterpret_cast<const char*>(&mc.pcoord[1]), sizeof(double));
-		return ofs;
+		return ofs;/*
 	}
 	else {
 		//thrown?
 		cout << "blad" << endl;
-	}
+		return ofs;
+	}*/
 }
 ifstream&operator>>(ifstream&ifs, mcoord &mc) {
 	if (!mc.pcoord) {

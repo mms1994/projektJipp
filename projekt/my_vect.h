@@ -21,7 +21,7 @@ public:
 	void push(const T &ob); // dodaje obiekt typu T w pierwsz¹ woln¹ pozycjê i zwiêksza last o jedynkê
 	T * pop();       //dekrementuje last i zwraca ostatni element tablicy
 	void insert(const T &ob, size_t ind); //wstawia element ob w tablicê dat po elemencie dat[ind]
-	void insert(const T &tab_ob, size_t ind, size_t numb);  // wstawia tablicê elementów tab_ob w tablicê dat po elemencie dat[ind], gdzie numb - iloœæ elementów w tablicy tab_ob
+	void insert(const T *tab_ob, size_t ind, size_t numb);  // wstawia tablicê elementów tab_ob w tablicê dat po elemencie dat[ind], gdzie numb - iloœæ elementów w tablicy tab_ob
 	void erase(const T *ob); //usuwa element *ob z tablicy dat i przesuwa elementy tablicy tak, aby po usuniêciu elementy by³y umieszczone w sposób ci¹g³y (metoda "pakuje" tablicê)
 	void clear_all();
 	template <class T, class Key>
@@ -92,7 +92,7 @@ my_vect<T>::~my_vect() {
 template <class T>
 void my_vect<T>::disp() {
 	if (last>0) {
-		for (int i = 0; i < (last); i++)
+		for (size_t i = 0; i < (last); i++)
 			cout << dat[i] << endl;
 	}
 	else
@@ -122,7 +122,7 @@ T *my_vect<T>::pop() {
 }
 template <class T>
 T & my_vect<T>::operator[](const size_t ind) {
-	if (0 < ind && ind < last)
+	if (0 <= ind && ind < last)
 		return dat[ind];
 	else {
 		cout << "index spoza zakresu" << endl;
@@ -212,15 +212,15 @@ void my_vect<T>::insert(const T &ob, size_t ind) {
 	}
 }
 template <class T>
-void my_vect<T>::insert(const T &tab_ob, size_t ind, size_t numb) {
+void my_vect<T>::insert(const T *tab_ob, size_t ind, size_t numb) {
 	if (!dat) {
 		cout << "Pusto" << endl;
 	}
 	else if (last < ndim && (last - 1 + numb) < ndim) {
 		int temp = last;
 		int temp2 = numb;
-		int temp3 = ind;
-		int dif = last - ind;
+		size_t temp3 = ind;
+		size_t diff = last - ind;
 		last += numb;
 		int diff2 = last - diff;
 		for (size_t i = 0; i < diff; i++) {
@@ -228,7 +228,7 @@ void my_vect<T>::insert(const T &tab_ob, size_t ind, size_t numb) {
 			diff2++;
 			temp3++;
 		}
-		temp3 = ind;
+		temp3 = ind+1;
 		for (size_t i = 0; i < numb; i++) {
 			dat[temp3] = tab_ob[i];
 			temp3++;
@@ -236,11 +236,11 @@ void my_vect<T>::insert(const T &tab_ob, size_t ind, size_t numb) {
 	}
 	else {
 		while (!(last < ndim && (last - 1 + numb) < ndim))
-			realoc();
+			realloc();
 		int temp = last;
 		int temp2 = numb;
-		int temp3 = ind;
-		int dif = last - ind;
+		size_t temp3 = ind;
+		size_t diff = last - ind;
 		last += numb;
 		int diff2 = last--;
 		for (size_t i = 0; i < diff; i++) {
@@ -248,9 +248,10 @@ void my_vect<T>::insert(const T &tab_ob, size_t ind, size_t numb) {
 			diff--;
 			temp3++;
 		}
-		temp3 = ind;
+		temp3 = ind+1;
 		for (size_t i = 0; i < numb; i++) {
 			dat[temp3] = tab_ob[i];
+			temp3++;
 		}
 	}
 }
