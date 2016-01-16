@@ -46,7 +46,7 @@ int _tmain(int argc, _TCHAR* argv[])
 		case MY_INTERF_REMOVE:
 			ifc.remove();
 			break;
-		case MY_INTERF_ADD:
+		case MY_INTERF_SAVE:
 			ifc.save();
 			break;
 		case MY_INTERF_LOAD:

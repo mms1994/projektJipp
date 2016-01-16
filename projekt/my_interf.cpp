@@ -14,7 +14,7 @@ my_interf::my_interf(size_t dim) : vect() {
 	sprintf_s(str_interf[MY_INTERF_DISP], MAX_INTERF_CHAR*sizeof(char), "%d - disp", MY_INTERF_DISP);
 	sprintf_s(str_interf[MY_INTERF_FIND], MAX_INTERF_CHAR*sizeof(char), "%d - find", MY_INTERF_FIND);
 	sprintf_s(str_interf[MY_INTERF_REMOVE], MAX_INTERF_CHAR*sizeof(char), "%d - remove", MY_INTERF_REMOVE);
-	sprintf_s(str_interf[MY_INTERF_ADD], MAX_INTERF_CHAR*sizeof(char), "%d - save to file", MY_INTERF_ADD);
+	sprintf_s(str_interf[MY_INTERF_SAVE], MAX_INTERF_CHAR*sizeof(char), "%d - save to file", MY_INTERF_SAVE);
 	sprintf_s(str_interf[MY_INTERF_LOAD], MAX_INTERF_CHAR*sizeof(char), "%d - read from file", MY_INTERF_LOAD);
 	sprintf_s(str_interf[MY_INTERF_CHANGE], MAX_INTERF_CHAR*sizeof(char), "%d - change", MY_INTERF_CHANGE);
 	sprintf_s(str_interf[MY_INTERF_FINISH], MAX_INTERF_CHAR*sizeof(char), "%d - finish", MY_INTERF_FINISH);
@@ -25,6 +25,10 @@ my_interf::my_interf(size_t dim) : vect() {
 void my_interf::menu() {
 	system("cls");
 	int i;
+	cout << "Wybrany tryb to: ";
+	if (tryb == 0) cout << "node" << endl;
+	else if (tryb == 1) cout << "note" << endl;
+	else cout << "blad" << endl;
 	for (i = 0; i<MY_INTERF_TOT; i++) {
 		cout << str_interf[i] << endl;
 	}
