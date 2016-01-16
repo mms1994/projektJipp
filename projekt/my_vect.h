@@ -128,7 +128,7 @@ T & my_vect<T>::operator[](const size_t ind) {
 		return dat[ind];
 	else {
 		cout << "index spoza zakresu" << endl;
-		return node();
+		return T();
 	}
 }
 template <class T>

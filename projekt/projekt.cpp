@@ -8,7 +8,11 @@ int _tmain(int argc, _TCHAR* argv[])
 {
 	int op;  //operacje
 	my_interf ifc(2);
-
+	
+	cout << "Wybierz tryb pracy, 0 - node, 1 - note" << endl;
+	int t;
+	cin >> t;
+	ifc.setTryb(t);
 	while (ifc.run)
 	{
 		ifc.menu();
@@ -47,6 +51,9 @@ int _tmain(int argc, _TCHAR* argv[])
 			break;
 		case MY_INTERF_LOAD:
 			ifc.load();
+			break;
+		case MY_INTERF_CHANGE:
+			ifc.change();
 			break;
 		case MY_INTERF_FINISH:
 			ifc.finish();

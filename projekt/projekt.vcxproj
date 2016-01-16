@@ -149,6 +149,7 @@
     <ClInclude Include="my_interf.h" />
     <ClInclude Include="my_mess.h" />
     <ClInclude Include="node.h" />
+    <ClInclude Include="note.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="my_vect.h" />
@@ -158,6 +159,7 @@
     <ClCompile Include="my_interf.cpp" />
     <ClCompile Include="my_mess.cpp" />
     <ClCompile Include="node.cpp" />
+    <ClCompile Include="note.cpp" />
     <ClCompile Include="projekt.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

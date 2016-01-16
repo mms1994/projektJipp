@@ -6,6 +6,7 @@
 #include "my_vect.h"
 #include "node.h"
 #include "my_mess.h"
+#include "note.h"
 
 enum MY_INTERF
 {
@@ -20,6 +21,7 @@ enum MY_INTERF
 	MY_INTERF_REMOVE,
 	MY_INTERF_ADD,
 	MY_INTERF_LOAD,
+	MY_INTERF_CHANGE,
 	MY_INTERF_FINISH,
 	MY_INTERF_TOT
 };
@@ -28,16 +30,20 @@ class my_interf
 {
 private:
 	my_vect<node> vect;
+	my_vect<note> vect2;
 	char str_interf[MY_INTERF_TOT][512];  //komunikaty, wyœwietlane na monitorze (menu)
 	my_mess msg;
 	ifstream flinp;
 	ofstream flout;
 	char filename[64];
+	int tryb;
 public:
 	bool run;
 
 	my_interf() : vect() {};
 	my_interf(size_t dim);
+	void setTryb(int t);
+	int getTryb();
 	void menu();
 	void push();
 	void pop();
@@ -48,6 +54,7 @@ public:
 	void remove();
 	void save();
 	void load();
+	void change();
 	void clear_all();
 	void modify();
 	void addObj();
