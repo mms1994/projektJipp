@@ -17,6 +17,7 @@ public:
 	~node();
 	node operator=(const node &nd);
 	int operator==(const node &nd);
+	int operator==(const int key);
 	friend ostream&operator<<(ostream &os, node &nd);
 	friend istream&operator>>(istream &is, node &nd);
 	friend ofstream&operator<<(ofstream&ofs, node &nd);

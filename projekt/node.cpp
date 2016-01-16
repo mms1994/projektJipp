@@ -3,7 +3,7 @@
 
 node::node(int nb, char *st, double xx, double yy) : mcoord(xx,yy) {
 	this->numb = nb;
-	memcpy_s(this->str, 512*sizeof(char), st, (strlen(st)+1)*sizeof(char));
+	memcpy_s(this->str, (strlen(st) + 1)*sizeof(char), st, (strlen(st)+1)*sizeof(char));
 }
 node::node():mcoord() {
 	this->numb = 0;
@@ -15,16 +15,19 @@ node::~node() {
 }
 node::node(const node &nd) : mcoord(nd) {
 	this->numb = nd.numb;
-	memcpy_s(str, 512 * sizeof(char), nd.str, (strlen(nd.str)+1)*sizeof(char));
+	memcpy_s(str, (strlen(nd.str) + 1) * sizeof(char), nd.str, (strlen(nd.str)+1)*sizeof(char));
 }
 node node::operator=(const node &nd) {
 	this->numb = nd.numb;
-	memcpy_s(str, 512 * sizeof(char), nd.str, (strlen(nd.str) + 1)*sizeof(char));
+	memcpy_s(str, (strlen(nd.str) + 1) * sizeof(char), nd.str, (strlen(nd.str) + 1)*sizeof(char));
 	this->mcoord::operator=(nd);
 	return *this;
 }
 int node::operator==(const node &nd) {
-	return (numb == nd.numb);
+	return (this->numb == nd.numb);
+}
+int node::operator==(const int key) {
+	return (this->numb == key);
 }
 ostream&operator<<(ostream &os, node &nd) {
 	os << "Opis: " << nd.str << endl << "Numer: " << nd.numb << endl << static_cast<const mcoord&>(nd);
@@ -49,6 +52,7 @@ ofstream&operator<<(ofstream&ofs, node &nd) {
 	else {
 		//thrown?
 		cout << "Blad!" << endl;
+		return ofs;
 	}
 }
 ifstream&operator>>(ifstream&ifs, node &nd) {

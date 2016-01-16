@@ -57,32 +57,28 @@ void my_interf::disp() {
 
 void my_interf::find() {
 	system("cls");
-	node nd(0, "", 0, 0);
-	node *ptr = nullptr;
-	node *ptr1 = nullptr;
-	cout << "input x, y - object for search\n";
-	cin >> nd;
-	ptr = vect.get_begin();
-	ptr1 = vect.get_end();
-	size_t dist;
-	int i = 0;
-	while (ptr)	{
-		ptr = Find(ptr, vect.get_end(), nd);
-		if (ptr) {
-			dist = ptr - vect.get_begin();
-			cout << "it = " << dist << " " << *ptr;
-			if (*ptr == *ptr1)
-				i++;
-			else
-				ptr++;
+	node *begin = nullptr;
+	node *end = nullptr;
+	begin = vect.get_begin();
+	end = vect.get_end();
+	node *rez=nullptr;
+	cout << "Podaj szukana wartosc" << endl;
+	int key;
+	cin >> key;
+	while (true) {
+		rez = Find(begin, end, key);
+		if (rez) {
+			cout << *rez << endl;
+			break;
+		}
+		if (*begin == *end) {
+			cout << "Brak" << endl;
+			break;
 		}
 		else
-			cout << "search end\n";
-		if (i) {
-			cout << "search end\n";
-			ptr = nullptr;
-		}
+			begin++;
 	}
+	system("pause");
 }
 
 void my_interf::finish() {
@@ -237,7 +233,7 @@ void my_interf::addTabObj() {
 }
 void my_interf::setFileName(char name[]) {
 	if(strlen(name)<64) 
-		memcpy_s(this->filename, 64 * sizeof(char), name, (strlen(name) + 1)*sizeof(char));
+		memcpy_s(this->filename, (strlen(name) + 1) * sizeof(char), name, (strlen(name) + 1)*sizeof(char));
 }
 char *my_interf::getFileName() {
 	return filename;

@@ -25,7 +25,7 @@ public:
 	void erase(const T *ob); //usuwa element *ob z tablicy dat i przesuwa elementy tablicy tak, aby po usuniêciu elementy by³y umieszczone w sposób ci¹g³y (metoda "pakuje" tablicê)
 	void clear_all();
 	template <class T, class Key>
-	friend T *Find(T *begin, T *end, const Key &k);
+	friend T *Find(const T *begin, const T *end, const Key &k);
 	void remove(size_t ind);
 	void removeLast();
 	void modify(const T &ob, size_t ind);
@@ -134,9 +134,14 @@ void my_vect<T>::erase(const T *ob) {
 
 }
 template <class T, class Key>
-T *Find(T *begin, T *end, const Key &k) {
-	T temp;
-	return &temp;
+T *Find(const T *begin, const T *end, const Key &k) {
+	T *temp= const_cast<T*>(begin);
+	while (!(*temp == *end)) {
+		if (*temp==k) return temp;
+		*temp++;
+	}
+		
+	return nullptr;
 }
 template <class T>
 void my_vect<T>::clear_all() {
