@@ -96,6 +96,7 @@ void my_interf::remove() {
 	cout << "Podaj numer indeksu do usuniecia: ";
 	cin >> i;
 	vect.remove(i);
+	system("pause");
 }
 
 void my_interf::save() {
@@ -107,9 +108,9 @@ void my_interf::save() {
 	flout.open(getFileName(), ios_base::out | ios::trunc | ios::binary);
 	size_t max = vect.getLast();
 	if (!max)
-		cout << "Tablica jest pusta !!!" << endl;
+		msg.mess(WARN_ARR_EMPT);
 	else if (!flout.is_open())
-		cout << "Plik nie zostal otwarty !!!" << endl;
+		msg.mess(ERR_OPEN_FILE);
 	else {
 		size_t i;
 		flout.clear();
@@ -134,7 +135,7 @@ void my_interf::load() {
 	int i = 0;
 	flinp.clear();
 	if (!flinp.is_open())
-		cout << "Plik nie zostal otwarty !!!" << endl;
+		msg.mess(ERR_OPEN_FILE);
 	else {
 			int a = vect.getNdim();
 			if (i == a)
@@ -172,7 +173,7 @@ void my_interf::modify() {
 		cout << "Zmieniono" << endl;
 	}
 	else if (i == 2) {
-		cout << "Pusto" << endl;
+		msg.mess(WARN_ARR_EMPT);
 	}
 	else {
 		cout << "Index spoza tablicy" << endl;
@@ -192,7 +193,7 @@ void my_interf::addObj() {
 		cout << "Dodano" << endl;
 	}
 	else if (i == 2) {
-		cout << "Pusto" << endl;
+		msg.mess(WARN_ARR_EMPT);
 	}
 	else {
 		cout << "Index spoza tablicy" << endl;
@@ -225,11 +226,12 @@ void my_interf::addTabObj() {
 		}
 	}
 	else if (i == 2) {
-		cout << "Pusto" << endl;
+		msg.mess(WARN_ARR_EMPT);
 	}
 	else {
 		cout << "Index spoza tablicy" << endl;
 	}
+	system("pause");
 }
 void my_interf::setFileName(char name[]) {
 	if(strlen(name)<64) 

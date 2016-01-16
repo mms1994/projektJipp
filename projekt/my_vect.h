@@ -2,12 +2,14 @@
 #define INCLUDE_MY_HEADER_my_vect_h
 
 #include "stdafx.h"
+#include "my_mess.h"
 
 template <class T> class my_vect
 {
 	T *dat;       //wskaŸnik do tablicy typu ogólnego T
 	size_t ndim;  //iloœæ elementów, na jak¹ zosta³a zaalokowana pamiêæ dla tablicy dat
 	size_t last;  //indeks, który wskazuje na pierwszy wolny element tablicy
+	my_mess msg;
 
 public:
 	my_vect(size_t dim);  //alokuje pamiêæ dla tablicy dat na dim elementów (przy tworzeniu obiektu)
@@ -46,7 +48,7 @@ void my_vect<T>::alloc(size_t dim) {
 		}
 	}
 	catch (bad_alloc) {
-		cerr << "Blad alokacji" << endl;
+		msg.mess(ERR_ALLOC_MEM);
 		system("pause");
 		exit(-1);
 	}
@@ -65,7 +67,7 @@ void my_vect<T>::realloc() {
 		dat = Dat;
 	}
 	catch (bad_alloc) {
-		cerr << "Blad realokacji" << endl;
+		msg.mess(ERR_ALLOC_MEM);
 		system("pause");
 		exit(-1);
 	}
@@ -96,7 +98,7 @@ void my_vect<T>::disp() {
 			cout << dat[i] << endl;
 	}
 	else
-		cout << "Pusto" << endl;
+		msg.mess(WARN_ARR_EMPT);
 }
 template <class T>
 void my_vect<T>::push(const T &ob) {
@@ -158,6 +160,9 @@ void my_vect<T>::remove(size_t ind) {
 		last--;
 		dat[last].T::~T();
 	}
+	else {
+		msg.mess(WARN_ARR_EMPT);
+	}
 }
 template <class T>
 void my_vect<T>::removeLast() {
@@ -194,7 +199,7 @@ int my_vect<T>::getNdim() {
 template <class T>
 void my_vect<T>::insert(const T &ob, size_t ind) {
 	if (!dat) {
-		cout << "Pusto!" << endl;
+		msg.mess(WARN_ARR_EMPT);
 	}
 	else if (last < ndim) {
 		int temp = last;
@@ -219,7 +224,7 @@ void my_vect<T>::insert(const T &ob, size_t ind) {
 template <class T>
 void my_vect<T>::insert(const T *tab_ob, size_t ind, size_t numb) {
 	if (!dat) {
-		cout << "Pusto" << endl;
+		msg.mess(WARN_ARR_EMPT);
 	}
 	else if (last < ndim && (last - 1 + numb) < ndim) {
 		int temp = last;
