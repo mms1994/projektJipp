@@ -55,16 +55,16 @@ void my_vect<T>::alloc(size_t dim) {
 }
 template <class T>
 void my_vect<T>::realloc() {
-	T *Dat = nullptr;
+	T *dat2 = nullptr;
 	try {
-		Dat = new T[ndim + 10];
-		for (size_t st = 0; st < last; st++)
-			Dat[st] = dat[st];
+		dat2 = new T[ndim + 10];
+		for (size_t i = 0; i < last; i++)
+			dat2[i] = dat[i];
 		ndim += 10;
 		size_t temp = last;
 		clear_all();
 		last = temp;
-		dat = Dat;
+		dat = dat2;
 	}
 	catch (bad_alloc) {
 		msg.mess(ERR_ALLOC_MEM);

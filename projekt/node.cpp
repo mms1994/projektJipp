@@ -50,7 +50,6 @@ ofstream&operator<<(ofstream&ofs, node &nd) {
 		return ofs;
 	}
 	else {
-		//thrown?
 		cout << "Blad!" << endl;
 		return ofs;
 	}
