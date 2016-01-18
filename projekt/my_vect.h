@@ -211,7 +211,8 @@ void my_vect<T>::insert(const T &ob, size_t ind) {
 		last++;
 	}
 	else {
-		realloc();
+		while(last<ndim)
+			realloc();
 		int temp = last;
 		while (ind != temp) {
 			temp--;
